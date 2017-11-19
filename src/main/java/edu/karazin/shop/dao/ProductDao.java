@@ -15,4 +15,5 @@ public interface ProductDao {
 	Product save(Product prod);
 
 	void delete(Long id);
+	
 }

@@ -44,7 +44,7 @@ public class ProductEditController {
 		model.addAttribute("product", p);
 		return "product-edit";
 	}
-
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public String addProduct(Model model, Product product) {
 		log.info("Add product");
@@ -58,4 +58,5 @@ public class ProductEditController {
 		productService.updateProduct(product);
 		return "redirect:/products";
 	}
+	
 }

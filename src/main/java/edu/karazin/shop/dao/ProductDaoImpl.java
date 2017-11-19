@@ -47,4 +47,6 @@ public class ProductDaoImpl implements ProductDao {
 	public void delete(Long id) {
 		em.remove(findById(id));
 	}
+	
+	
 }

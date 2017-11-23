@@ -1,5 +1,7 @@
 package edu.karazin.shop.web;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.karazin.shop.model.Product;
 import edu.karazin.shop.service.ProductService;
@@ -46,15 +50,31 @@ public class ProductEditController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String addProduct(Model model, Product product) {
+	public String addProduct(Model model, Product product,
+		 @RequestParam(value = "file", required = false) MultipartFile file)
+				 throws IOException {
+		
 		log.info("Add product");
+		
+		product.setImage(file.getBytes());
+		product.setImageMimeType(file.getContentType());
 		productService.addProduct(product);
+		
 		return "redirect:/products";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, path = "{id}")
-	public String updateProduct(Model model, Product product) {
+	public String updateProduct(Model model, Product product,
+			@RequestParam(value = "file", required = false) MultipartFile file)
+					throws IOException {
+		
 		log.info("Update product");
+		
+		if (file != null) {
+			product.setImage(file.getBytes());
+			product.setImageMimeType(file.getContentType());
+		}
+		
 		productService.updateProduct(product);
 		return "redirect:/products";
 	}

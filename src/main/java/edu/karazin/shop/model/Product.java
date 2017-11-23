@@ -1,8 +1,13 @@
 package edu.karazin.shop.model;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+
+import org.apache.tomcat.util.codec.binary.Base64;
 
 @Entity
 public class Product {
@@ -10,9 +15,13 @@ public class Product {
 	@Id
     @GeneratedValue
 	private Long id;
+	
 	private String title;
 	private String description;
+	
+	@Lob
 	private byte[] image;
+	
 	private String imageMimeType;
 	private long cost;
 	private int balance;
@@ -57,13 +66,29 @@ public class Product {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+	
 	public byte[] getImage() {
-		return image;
+        return image;
 	}
-
+	
 	public void setImage(byte[] image) {
-		this.image = image;
+		if (image != null) {
+			this.image = image;
+		}
+	}
+	
+	public String getImageString() {
+		if (image != null) {
+			byte[] encodeBase64 = Base64.encodeBase64(image);
+			try {
+				return new String(encodeBase64, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return null;
 	}
 
 	public String getImageMimeType() {

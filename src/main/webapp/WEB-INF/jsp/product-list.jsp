@@ -17,6 +17,7 @@
     <c:forEach items="${products}" var="prod">
         <li id="product_${prod.id}">
             <h3>${prod.title} ( ${prod.balance} )</h3>
+            <img alt="${prod.title}" src="data:${prod.imageMimeType};base64,${prod.imageString}">
             <p>${prod.description}</p>
             <a href="/product/${prod.id}">Edit</a>
             <button class="btn btn-info btn-lg product_delete" type="submit">Delete</button>

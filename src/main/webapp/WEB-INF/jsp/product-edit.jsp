@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <form:form modelAttribute="product">
+  <form:form modelAttribute="product" enctype="multipart/form-data">
         <fieldset>
             <form:label path="title">Title:</form:label>
 	        <form:input path="title" />
@@ -24,6 +24,10 @@
 
             <form:label path="title">Balance:</form:label>
 	        <form:input path="balance" />
+	        <br />
+	        
+	         <form:label path="title">Image:</form:label>
+	         <input name="file" type="file" accept="image/*" />
 	        <br />
         </fieldset>
 

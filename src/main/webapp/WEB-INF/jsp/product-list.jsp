@@ -20,6 +20,8 @@
             <img alt="${prod.title}" src="data:${prod.imageMimeType};base64,${prod.imageString}">
             <p>${prod.description}</p>
             <a href="/product/${prod.id}">Edit</a>
+            <a href="/cart?add&prodId=${prod.id}" class="btn btn-info" role="button">Add to Cart</a>
+                <a href="/order?prodId=${prod.id}" class="btn btn-info" role="button">Buy</a>
             <button class="btn btn-info btn-lg product_delete" type="submit">Delete</button>
         </li>
     </c:forEach>

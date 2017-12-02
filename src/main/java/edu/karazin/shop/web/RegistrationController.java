@@ -35,17 +35,16 @@ public class RegistrationController {
 	    }
 	 
 	 @RequestMapping(method = RequestMethod.POST)
-	    public String saveUser(@Valid User user, BindingResult result,
-	            Model model) {
+	    public String saveUser(@Valid User user, BindingResult result, Model model) {
 	 
-	        if (result.hasErrors()) {
-	            return "registration";
-	        }
+//	        if (result.hasErrors()) {
+//	            return "registration";
+//	        }
 	         
 	        userService.saveUser(user);
 	 
-//	        model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
-	        //return "success";
+	        model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
+	        
 	        return "registration-success";
 	    }
 

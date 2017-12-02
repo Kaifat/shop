@@ -23,4 +23,5 @@ public class ShopApplication extends SpringBootServletInitializer {
 	public StandardServletMultipartResolver multipartResolver() {
 	    return new StandardServletMultipartResolver();
 	}
+	
 }

@@ -19,6 +19,15 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	@Override
+	public User findByEmailPassword(String email, String password) {
+		User example = new User();
+		example.setEmail(email);
+		example.setPassword(password);
+		return em.find(User.class, example);
+		
+	}
+	
+	@Override
 	public User save(User user) {
 		if (!em.contains(user)) {
 			return em.merge(user);

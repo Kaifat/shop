@@ -23,4 +23,7 @@ public class UserServiceImpl implements UserService {
 		dao.save(user);
 	}
 
+	public User validateUser(String email, String password) {
+		return this.dao.findByEmailPassword(email, password);		
+	}
 }

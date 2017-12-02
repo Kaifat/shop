@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import edu.karazin.shop.model.Role;
 import edu.karazin.shop.model.User;
 import edu.karazin.shop.service.UserService;
 
@@ -40,7 +41,8 @@ public class RegistrationController {
 //	        if (result.hasErrors()) {
 //	            return "registration";
 //	        }
-	         
+		 	
+		 	user.setRole(Role.ROLE_USER);		 
 	        userService.saveUser(user);
 	 
 	        model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");

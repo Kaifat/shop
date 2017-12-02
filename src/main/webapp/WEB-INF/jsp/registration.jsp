@@ -37,7 +37,19 @@
                     </div>
                 </div>
             </div>
-     
+			
+			 <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-lable" for="login">Login</label>
+                    <div class="col-md-7">
+                        <form:input type="login" path="login" id="login" class="form-control input-sm" />
+                        <div class="has-error">
+                            <form:errors path="login" class="help-inline"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			     
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="password">Password</label>

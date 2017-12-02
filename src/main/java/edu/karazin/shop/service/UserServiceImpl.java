@@ -5,25 +5,33 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.karazin.shop.dao.UserDao;
+import edu.karazin.shop.dao.UserRepository;
 import edu.karazin.shop.model.User;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-	private final UserDao dao;
+	private final UserRepository userRepository;
 	
-	public UserServiceImpl(@Autowired UserDao dao) {
-		this.dao = dao;
-	}
+	 @Autowired
+     public UserServiceImpl(UserRepository userRepository) {
+         this.userRepository = userRepository;
+     }
 	
 	@Override
 	@Transactional
 	public void saveUser(User user) {
-		dao.save(user);
+		userRepository.save(user);
 	}
+	
+	 @Override
+     public User getUser(Long id) {
+         return userRepository.findOne(id);
+     }
+ 
+     @Override
+     public User getUser(String login) {
+         return userRepository.findByLogin(login);
+     }
 
-	public User validateUser(String email, String password) {
-		return this.dao.findByEmailPassword(email, password);		
-	}
 }

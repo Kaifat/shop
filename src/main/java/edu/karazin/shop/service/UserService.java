@@ -6,5 +6,7 @@ public interface UserService {
 
     void saveUser(User user);
     
-    User validateUser(String email, String password);
+    User getUser(Long id);
+    
+    User getUser(String login);
 }

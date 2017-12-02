@@ -1,10 +1,6 @@
 package edu.karazin.shop.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.persistence.*;
 
 @Entity
 public class User {
@@ -13,26 +9,32 @@ public class User {
     @GeneratedValue
 	private Long id;
 	
-	@NotEmpty
 	private String lastName;
 	
-	@NotEmpty
 	private String firstName;
 	
-	@NotEmpty
+	private String login;
+	
 	private String password;
 	
-	@NotEmpty
 	private String email;
+	
+	@Enumerated(EnumType.STRING)
+	private Role role;
 	
 	public User() {
 	}
 	
-	public User (Long id, String lastName, String firstName, String password, String email) {
-		this.id = id;
+	public User(String login, String password, Role role) {
+		this(login, password, role, null, null, null);
+	}
+	
+	public User(String login, String password, Role role, String lastName, String firstName, String email) {
+		this.login = login;
+		this.password = password;
+		this.role = role;
 		this.lastName = lastName;
 		this.firstName = firstName;
-		this.password = password;
 		this.email = email;
 	}
 	
@@ -42,6 +44,22 @@ public class User {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public Role getRole() {
+		return role;
+	}
+	
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
+	public String getLogin() {
+		return login;
+	}
+	
+	public void setLogin(String login) {
+		this.login = login;
 	}
 	
 	public String getLastName() {
@@ -61,7 +79,7 @@ public class User {
 	}
 	
 	public String getPassword() {
-		return lastName;
+		return password;
 	}
 
 	public void setPassword(String password) {
@@ -69,7 +87,7 @@ public class User {
 	}
 	
 	public String getEmail() {
-		return firstName;
+		return email;
 	}
 
 	public void setEmail(String email) {

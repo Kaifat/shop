@@ -30,6 +30,8 @@ public class ProductListController {
 		log.info("Read full product list");
 		model.addAttribute("products", productService.searchProducts(null));
 		model.addAttribute("searchForm", new ProductSerachForm(searchText));
+		
+		
 		return "product-list";
 	}
 
@@ -38,6 +40,7 @@ public class ProductListController {
 			@ModelAttribute("searchForm") ProductSerachForm form) {
 		log.info("Search product list with {}", form.getSearchText());
 		model.addAttribute("products", productService.searchProducts(form.getSearchText()));
+		
 		return "product-list";
 	}
 }

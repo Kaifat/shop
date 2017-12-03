@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+ <!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ 
+<tiles-definitions>  
+  
+   <!-- Base Definition -->
+   <definition name="base-definition"
+       template="/WEB-INF/tiles/layouts/default.jsp">  
+       <put-attribute name="title" value="" />  
+       <put-attribute name="header" value="/WEB-INF/tiles/template/header.jsp" />  
+       <put-attribute name="body" value="" />  
+       <put-attribute name="footer" value="/WEB-INF/tiles/template/footer.jsp" />  
+   </definition>  
+ 
+   <!-- Product Page -->
+   <definition name="product-list" extends="base-definition">  
+       <put-attribute name="title" value="Products" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/product-list.jsp" />  
+   </definition>
+   
+   <!-- Product Edit -->
+   <definition name="product-edit" extends="base-definition">  
+       <put-attribute name="title" value="Product Edit" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/product-edit.jsp" />  
+   </definition>
+   
+   <!-- Login Page -->
+   <definition name="login" extends="base-definition">  
+       <put-attribute name="title" value="Login" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/login.jsp" />  
+   </definition>
+   
+    <!-- Registration Page -->
+   <definition name="registration" extends="base-definition">  
+       <put-attribute name="title" value="Registration" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/registration.jsp" />  
+   </definition>
+   
+   <!-- Cart Page -->
+   <definition name="cart-list" extends="base-definition">  
+       <put-attribute name="title" value="Cart" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/cart-list.jsp" />  
+   </definition> 
+
+</tiles-definitions>

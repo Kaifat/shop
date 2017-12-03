@@ -39,7 +39,8 @@
 	padding: 0 10px 10px 10px;
 }
 
-.action-box a {
+.action-box a,
+.action-box button {
 	float: right;
 	margin-left: 10px;
 }

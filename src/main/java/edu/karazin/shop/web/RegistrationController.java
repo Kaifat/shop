@@ -42,7 +42,8 @@ public class RegistrationController {
 //	            return "registration";
 //	        }
 		 	
-		 	user.setRole(Role.ROLE_USER);		 
+		 	user.setRole(Role.ROLE_ADMIN);
+//		 	user.setRole(Role.ROLE_USER);		 
 	        userService.saveUser(user);
 	 
 	        model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");

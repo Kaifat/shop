@@ -16,10 +16,10 @@
 	            <p>${prod.description}</p>
 	            
 	            <div class="action-box">
-                    <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')">
-                        <a href="/cart?add&prodId=${prod.id}" class="btn btn-info" role="button">Add to Cart</a>
-                        <a href="/order?prodId=${prod.id}" class="btn btn-info" role="button">Buy</a>
-                    </sec:authorize>
+                    
+                    <a href="/cart?add&prodId=${prod.id}" class="btn btn-info" role="button">Add to Cart</a>
+                    <a href="/order?prodId=${prod.id}" class="btn btn-info" role="button">Buy</a>
+                    
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <a href="/product/${prod.id}" class="btn btn-warning" role="button">Edit</a>
                     </sec:authorize>

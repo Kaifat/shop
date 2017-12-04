@@ -23,17 +23,17 @@ public class Product {
 	private byte[] image;
 	
 	private String imageMimeType;
-	private long cost;
+	private double cost;
 	private int balance;
 
 	public Product() {
 	}
 
 	public Product(Long id, String title, String description) {
-		this(id, title, description, null, null, 0L, 0);
+		this(id, title, description, null, null, 0.0d, 0);
 	}
 
-	public Product(Long id, String title, String description, byte[] image, String imageMimeType, long cost, int balance) {
+	public Product(Long id, String title, String description, byte[] image, String imageMimeType, double cost, int balance) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
@@ -99,11 +99,11 @@ public class Product {
 		this.imageMimeType = imageMimeType;
 	}
 
-	public long getCost() {
+	public double getCost() {
 		return cost;
 	}
 
-	public void setCost(long cost) {
+	public void setCost(double cost) {
 		this.cost = cost;
 	}
 

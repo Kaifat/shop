@@ -1,5 +1,7 @@
 package edu.karazin.shop.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,8 @@ import edu.karazin.shop.service.ProductService;
 @Controller
 @RequestMapping("cart")
 public class CartController {
+	
+	private static final Logger log = LoggerFactory.getLogger(CartController.class);
 
 	private final ProductService productService;
 	private final ProductCart productCart;
@@ -29,7 +33,7 @@ public class CartController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, params = "add")
-	public String addProduct(@RequestParam("prodId") Long prodId, Model model) {
+	public String addProduct(@RequestParam("prodId") Long prodId, Model model) {		
 		productCart.addProduct(productService.getProduct(prodId));
 		return list(model);
 	}

@@ -32,7 +32,11 @@ public class CartItem {
 	public CartItem() {
 	}
 	
-	public CartItem(Cart cart, Product product, int amount, double price) {
+	public CartItem(Product product, int amount, double price) {
+		this(product, amount, price, null);
+	}
+	
+	public CartItem(Product product, int amount, double price, Cart cart) {
 		this.cart = cart;
 		this.product = product;
 		this.amount = amount;
@@ -53,6 +57,15 @@ public class CartItem {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+	
+	public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
     
     public int getAmount() {

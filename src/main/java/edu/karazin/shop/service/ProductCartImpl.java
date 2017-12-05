@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.core.Authentication;
@@ -27,12 +27,14 @@ import edu.karazin.shop.model.User;
 public class ProductCartImpl implements ProductCart {
 
 	
-	private static final Logger log = LoggerFactory.getLogger(ProductCartImpl.class);
+//	private static final Logger log = LoggerFactory.getLogger(ProductCartImpl.class);
 	
 	private final CartRepository cartRepository;
 	private final CartItemRepository cartItemRepository;
 	private final UserRepository userRepository;
-	private final List<Product> products = new ArrayList<>();
+//	private final List<Product> products = new ArrayList<>();
+	private final List<CartItem> cartItems = new ArrayList<>();
+	
 	
 	@Autowired
     public ProductCartImpl(CartRepository cartRepository, CartItemRepository cartItemRepository, 
@@ -43,29 +45,45 @@ public class ProductCartImpl implements ProductCart {
     }
 
 	@Override
-	public List<Product> getProducts() {
-		return products;
+	public List<CartItem> getCartItems() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth.getName() == "anonymousUser") {
+			return cartItems;
+		} else {
+			User user = this.userRepository.findByLogin(auth.getName());
+			Cart cart = this.cartRepository.findFirstByUserAndStatus(user, "new");
+			return this.cartItemRepository.findByCart(cart);
+		}
 	}
 
 	@Override
 	public void addProduct(Product prod) {
+		CartItem cartItem = new CartItem(prod, 1, prod.getCost());
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    
 	    if (auth.getName() == "anonymousUser") {
-	    	products.add(prod);
+	    	cartItems.add(cartItem);
 	    } else {
 	    	User user = this.userRepository.findByLogin(auth.getName());
-	    	Cart cart = new Cart(user, "new", new Date());
-	    	this.cartRepository.save(cart);
-	    	CartItem cartItem = new CartItem(cart, prod, 1, prod.getCost());
+	    	
+	    	Cart cart = this.cartRepository.findFirstByUserAndStatus(user, "new");
+	    	if (cart == null) {
+	    		cart = new Cart(user, "new", new Date());
+	    		this.cartRepository.save(cart);
+	    	}	
+	    	cartItem.setCart(cart);
 	    	this.cartItemRepository.save(cartItem);
 	    }
 	}
 
 	@Override
-	public void removeProduct(Long prodId) {
-		products.removeIf(item -> item.getId() == prodId);
+	public void removeCartItem(Long cartItemId) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth.getName() == "anonymousUser") {
+			cartItems.removeIf(item -> item.getId() == cartItemId);
+		} else {
+			this.cartItemRepository.delete(cartItemId);
+		}
 		
 	}
-
 }

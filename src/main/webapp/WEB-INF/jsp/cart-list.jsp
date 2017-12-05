@@ -6,10 +6,13 @@
 	<div class="center">
 	
 	    <ul class="cart-list">
-	    <c:forEach items="${products}" var="prod">
+	    <c:forEach items="${cartItems}" var="cartItem">
 	        <li class="cart-item">
-	            <h3>${prod.title}</h3>
-	            <a href="/cart?delete&prodId=${prod.id}" class="btn btn-danger" role="button">Remove</a>
+	        	<h3>${cartItem.getProduct().title}</h3>
+	        	<img alt="${cartItem.getProduct().title}" 
+	        		src="data:${cartItem.getProduct().imageMimeType};base64,${cartItem.getProduct().imageString}">
+	            <h3>${cartItem.price}</h3>
+	            <a href="/cart?delete&cartItemId=${cartItem.id}" class="btn btn-danger" role="button">Remove</a>
 	        </li>
 	    </c:forEach>
 	    </ul>

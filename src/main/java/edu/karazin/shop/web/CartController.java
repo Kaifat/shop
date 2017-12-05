@@ -1,7 +1,7 @@
 package edu.karazin.shop.web;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +16,7 @@ import edu.karazin.shop.service.ProductService;
 @RequestMapping("cart")
 public class CartController {
 	
-	private static final Logger log = LoggerFactory.getLogger(CartController.class);
+//	private static final Logger log = LoggerFactory.getLogger(CartController.class);
 
 	private final ProductService productService;
 	private final ProductCart productCart;
@@ -28,7 +28,7 @@ public class CartController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model) {
-		model.addAttribute("products", productCart.getProducts());
+		model.addAttribute("cartItems", productCart.getCartItems());
 		return "cart-list";
 	}
 
@@ -39,8 +39,8 @@ public class CartController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, params = "delete")
-	public String removeProduct(@RequestParam("prodId") Long prodId, Model model) {
-		productCart.removeProduct(prodId);
+	public String removeProduct(@RequestParam("cartItemId") Long cartItemId, Model model) {
+		productCart.removeCartItem(cartItemId);
 		return list(model);
 	}
 

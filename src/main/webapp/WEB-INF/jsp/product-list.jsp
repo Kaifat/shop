@@ -8,9 +8,10 @@
         <input type="submit" class="btn btn-success" value="Search"/>
     </form:form>
 
-    <ul class="prod-list">
+    <ul class="prod-list row">
+    	
 	    <c:forEach items="${products}" var="prod">
-	        <li id="product_${prod.id}">
+	        <li class="col-md-6" id="product_${prod.id}">
 	            <h3>${prod.title} ( ${prod.balance} )</h3>
 	            <img alt="${prod.title}" src="data:${prod.imageMimeType};base64,${prod.imageString}">
 	            <p>${prod.description}</p>

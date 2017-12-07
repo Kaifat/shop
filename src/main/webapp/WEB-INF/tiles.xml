@@ -36,7 +36,7 @@
     <!-- Registration Page -->
    <definition name="registration" extends="base-definition">  
        <put-attribute name="title" value="Registration" />  
-       <put-attribute name="body" value="/WEB-INF/jsp/registration.jsp" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/registration.jsp" />
    </definition>
    
    <!-- Cart Page -->

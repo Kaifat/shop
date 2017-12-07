@@ -15,7 +15,23 @@
 	</head>
 
     <body>
-        <table>
+    	<div class="container-fluid">
+	    	<div class="row">
+	    		<div class="col-sm-12"><tiles:insertAttribute name="header" /></div>
+	    	</div>
+	    </div>
+	    <div class="container-fluid">
+	    	<div>
+	    		<tiles:insertAttribute name="body" />
+    		</div>
+   		</div>
+    	<div class="container-fluid">
+    		<div class="row">
+    			<div class="col-sm-12"><tiles:insertAttribute name="footer" /></div>
+    		</div>
+    	</div>
+    
+    <!--    <table>
 	      <tr>
 	        <td>
 	          <tiles:insertAttribute name="header" />
@@ -32,6 +48,8 @@
 	        </td>
 	      </tr>
 	    </table>
+	    
+	     -->
 	    
 	    <script type="text/javascript" src="${resourceContext}/main.js"></script>
 	    

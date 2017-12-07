@@ -32,7 +32,6 @@ public class ProductCartImpl implements ProductCart {
 	private final CartRepository cartRepository;
 	private final CartItemRepository cartItemRepository;
 	private final UserRepository userRepository;
-//	private final List<Product> products = new ArrayList<>();
 	private final List<CartItem> cartItems = new ArrayList<>();
 	
 	
@@ -62,27 +61,44 @@ public class ProductCartImpl implements ProductCart {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    
 	    if (auth.getName() == "anonymousUser") {
-	    	cartItems.add(cartItem);
+	    	Boolean found = false;
+	    	for (CartItem item : cartItems) { 
+	    		if(item.getProduct().getId().equals(prod.getId())) { 
+			       item.setAmount(item.getAmount() + 1);
+			       found = true;
+			   }
+	    	}
+	    	if (!found) {
+	    		cartItems.add(cartItem);
+	    	}
 	    } else {
 	    	User user = this.userRepository.findByLogin(auth.getName());
-	    	
 	    	Cart cart = this.cartRepository.findFirstByUserAndStatus(user, "new");
+	    	
 	    	if (cart == null) {
 	    		cart = new Cart(user, "new", new Date());
 	    		this.cartRepository.save(cart);
-	    	}	
-	    	cartItem.setCart(cart);
-	    	this.cartItemRepository.save(cartItem);
+	    	}
+	    	
+	    	CartItem existedCartItem = this.cartItemRepository.findFirstByCartAndProduct(cart, prod);
+	    	if (existedCartItem == null) {
+	    		cartItem.setCart(cart);
+	    		this.cartItemRepository.save(cartItem);
+	    	} else {
+	    		existedCartItem.setAmount(existedCartItem.getAmount() + 1);
+	    		this.cartItemRepository.save(existedCartItem);
+	    	}
+	    	
 	    }
 	}
 
 	@Override
-	public void removeCartItem(Long cartItemId) {
+	public void removeCartItem(Long itemId) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth.getName() == "anonymousUser") {
-			cartItems.removeIf(item -> item.getId() == cartItemId);
+			cartItems.removeIf(item -> item.getProduct().getId() == itemId);
 		} else {
-			this.cartItemRepository.delete(cartItemId);
+			this.cartItemRepository.delete(itemId);
 		}
 		
 	}

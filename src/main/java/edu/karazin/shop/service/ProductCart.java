@@ -10,6 +10,8 @@ public interface ProductCart {
 	List<CartItem> getCartItems();
 
 	void addProduct(Product prod);
+	
+	void buyProducts();
 
 	void removeCartItem(Long cartItemId);
 

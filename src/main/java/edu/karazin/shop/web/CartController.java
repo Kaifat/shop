@@ -29,6 +29,8 @@ public class CartController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model) {
 		model.addAttribute("cartItems", productCart.getCartItems());
+		int totalCount = productCart.getCartItems().stream().mapToInt(item -> item.getAmount()).sum();
+		model.addAttribute("totalCount", totalCount);					
 		return "cart-list";
 	}
 
@@ -38,6 +40,12 @@ public class CartController {
 		return list(model);
 	}
 
+	@RequestMapping(method = RequestMethod.GET, params = "buy")
+	public String buyProducts() {
+		productCart.buyProducts();
+		return "delivery";
+	}
+	
 	@RequestMapping(method = RequestMethod.GET, params = "delete")
 	public String removeProduct(@RequestParam("itemId") Long itemId, Model model) {
 		productCart.removeCartItem(itemId);

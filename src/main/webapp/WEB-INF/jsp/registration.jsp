@@ -55,7 +55,16 @@
                     </div>
                 </div>
             </div>
-     
+
+			<div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-lable" for="confirm_password">Confirm Password</label>
+                    <div class="col-md-7">
+                        <input type="password" id="confirm_password" class="form-control input-sm" />
+                    </div>
+                </div>
+            </div>
+			     
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="email">Email</label>
@@ -70,7 +79,8 @@
      
             <div class="row">
                 <div class="form-actions floatRight">
-                	<input type="submit" value="Register" class="btn btn-primary btn-sm"/>
+                	<input type="submit" value="Register" class="btn btn-primary btn-sm disabled" 
+                		disabled="disabled" id="registerButton" />
                 </div>
             </div>
         </form:form>

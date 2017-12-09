@@ -11,4 +11,5 @@
         <sec:authorize access="!hasRole('ROLE_ANONYMOUS')">
             <a href="/logout" class="btn btn-warning" role="button">Logout</a>
         </sec:authorize>
+
 </div>

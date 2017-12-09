@@ -91,6 +91,16 @@ public class ProductCartImpl implements ProductCart {
 	    	
 	    }
 	}
+	
+	@Override
+	public void buyProducts() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = this.userRepository.findByLogin(auth.getName());
+		Cart cart = this.cartRepository.findFirstByUserAndStatus(user, "new");
+		cart.setStatus("done");
+		this.cartRepository.save(cart);
+		
+	}
 
 	@Override
 	public void removeCartItem(Long itemId) {

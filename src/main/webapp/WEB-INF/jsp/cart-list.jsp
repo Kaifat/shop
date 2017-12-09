@@ -26,6 +26,11 @@
 	
 	    <div class="action-box">
 	        <a href="/products" class="btn btn-info" role="button">Back to products</a>
+	        <a href="/cart?buy" class="btn btn-info" role="button">Buy</a>
+	        
 	    </div>
-	
+	    <div>
+	    <h3>Total Count:</h3>
+			  ${totalCount}  
+	    </div>
 	</div>

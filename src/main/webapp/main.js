@@ -24,9 +24,20 @@ $(document).ready(function(){
 	
 	$('#password, #confirm_password').on('keyup', function () {
 		  if ($('#password').val() == $('#confirm_password').val()) {
+			  $('#registerButton').attr('disabled', false);
+			  if ($('#registerButton').hasClass('disabled')) {
+				  $('#registerButton').removeClass('disabled');
+			  }
 		    $('#message').html('Matching').css('color', 'green');
-		  } else 
-		    $('#message').html('Not Matching').css('color', 'red');
+		    console.log("suc");
+		  } else {
+			  $('#registerButton').attr('disabled', true);
+			  if (!$('#registerButton').hasClass('disabled')) {
+				  $('#registerButton').addClass('disabled');
+			  }
+			  $('#message').html('Not Matching').css('color', 'red');
+			  console.log("fail");
+		  }
 		});
 	
 	

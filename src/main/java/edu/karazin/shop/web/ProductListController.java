@@ -29,15 +29,13 @@ public class ProductListController {
 			@RequestParam(name = "searchText", required = false) String searchText) {
 		log.info("Read full product list");
 		model.addAttribute("products", productService.searchProducts(null));
-		model.addAttribute("searchForm", new ProductSerachForm(searchText));
-		
-		
+		model.addAttribute("searchForm", new ProductSearchForm(searchText));
 		return "product-list";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String searchProducts(Model model,
-			@ModelAttribute("searchForm") ProductSerachForm form) {
+			@ModelAttribute("searchForm") ProductSearchForm form) {
 		log.info("Search product list with {}", form.getSearchText());
 		model.addAttribute("products", productService.searchProducts(form.getSearchText()));
 		

@@ -9,15 +9,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class CartItem {
+public class OrderItem {
 	
 	@Id
     @GeneratedValue
 	private Long id;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @JoinColumn(name = "order_id")
+    private Order order;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
@@ -29,15 +29,15 @@ public class CartItem {
 	@Column(name = "price")
 	private double price;
 
-	public CartItem() {
+	public OrderItem() {
 	}
 	
-	public CartItem(Product product, int amount, double price) {
+	public OrderItem(Product product, int amount, double price) {
 		this(product, amount, price, null);
 	}
 	
-	public CartItem(Product product, int amount, double price, Cart cart) {
-		this.cart = cart;
+	public OrderItem(Product product, int amount, double price, Order order) {
+		this.order = order;
 		this.product = product;
 		this.amount = amount;
 		this.price = price;
@@ -51,12 +51,12 @@ public class CartItem {
 		this.id = id;
 	}
 	
-	public Cart getCart() {
-        return cart;
+	public Order getOrder() {
+        return order;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
 	

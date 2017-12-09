@@ -25,6 +25,8 @@ public class ProductRestController {
 	
 	@RequestMapping(method = RequestMethod.DELETE, path = "{id}")
 	public String removeProduct(Model model, Product product) {
+		log.info("++++++++++++++++++");
+		log.info(product.getId().toString());
 		log.info("Remove product");
 		productService.removeProduct(product.getId());
 		return "abcd";

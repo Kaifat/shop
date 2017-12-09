@@ -22,20 +22,31 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
+	@Column(name = "address")
+	private String address;
+	
+	@Column(name = "phone")
+	private String phone;
+	
+	
+	
 	public User() {
 	}
 	
 	public User(String login, String password, Role role) {
-		this(login, password, role, null, null, null);
+		this(login, password, role, null, null, null, null, null);
 	}
 	
-	public User(String login, String password, Role role, String lastName, String firstName, String email) {
+	public User(String login, String password, Role role, String lastName, String firstName, 
+					String email, String address, String phone) {
 		this.login = login;
 		this.password = password;
 		this.role = role;
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.email = email;
+		this.address = address;
+		this.phone = phone;
 	}
 	
 	public Long getId() {
@@ -94,6 +105,22 @@ public class User {
 		this.email = email;
 	}
 	
+	 public String getAddress() {
+	        return address;
+	    }
+
+	    public void setAddress(String address) {
+	        this.address = address;
+	    }
+	    
+	    public String getPhone() {
+	        return phone;
+	    }
+
+	    public void setPhone(String phone) {
+	        this.phone = phone;
+	    }
+
 	
 	
 }

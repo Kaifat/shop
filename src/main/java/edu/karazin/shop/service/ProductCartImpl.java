@@ -14,11 +14,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
-import edu.karazin.shop.dao.CartItemRepository;
-import edu.karazin.shop.dao.CartRepository;
+import edu.karazin.shop.dao.OrderItemRepository;
+import edu.karazin.shop.dao.OrderRepository;
 import edu.karazin.shop.dao.UserRepository;
-import edu.karazin.shop.model.Cart;
-import edu.karazin.shop.model.CartItem;
+import edu.karazin.shop.model.Order;
+import edu.karazin.shop.model.OrderItem;
 import edu.karazin.shop.model.Product;
 import edu.karazin.shop.model.User;
 
@@ -29,64 +29,64 @@ public class ProductCartImpl implements ProductCart {
 	
 //	private static final Logger log = LoggerFactory.getLogger(ProductCartImpl.class);
 	
-	private final CartRepository cartRepository;
-	private final CartItemRepository cartItemRepository;
+	private final OrderRepository orderRepository;
+	private final OrderItemRepository orderItemRepository;
 	private final UserRepository userRepository;
-	private final List<CartItem> cartItems = new ArrayList<>();
+	private final List<OrderItem> orderItems = new ArrayList<>();
 	
 	
 	@Autowired
-    public ProductCartImpl(CartRepository cartRepository, CartItemRepository cartItemRepository, 
+    public ProductCartImpl(OrderRepository orderRepository, OrderItemRepository orderItemRepository, 
     		UserRepository userRepository) {
-        this.cartRepository = cartRepository;
-        this.cartItemRepository = cartItemRepository;
+        this.orderRepository = orderRepository;
+        this.orderItemRepository = orderItemRepository;
         this.userRepository = userRepository;
     }
 
 	@Override
-	public List<CartItem> getCartItems() {
+	public List<OrderItem> getOrderItems() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth.getName() == "anonymousUser") {
-			return cartItems;
+			return orderItems;
 		} else {
 			User user = this.userRepository.findByLogin(auth.getName());
-			Cart cart = this.cartRepository.findFirstByUserAndStatus(user, "new");
-			return this.cartItemRepository.findByCart(cart);
+			Order order = this.orderRepository.findFirstByUserAndStatus(user, "new");
+			return this.orderItemRepository.findByOrder(order);
 		}
 	}
 
 	@Override
 	public void addProduct(Product prod) {
-		CartItem cartItem = new CartItem(prod, 1, prod.getCost());
+		OrderItem orderItem = new OrderItem(prod, 1, prod.getCost());
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    
 	    if (auth.getName() == "anonymousUser") {
 	    	Boolean found = false;
-	    	for (CartItem item : cartItems) { 
+	    	for (OrderItem item : orderItems) { 
 	    		if(item.getProduct().getId().equals(prod.getId())) { 
 			       item.setAmount(item.getAmount() + 1);
 			       found = true;
 			   }
 	    	}
 	    	if (!found) {
-	    		cartItems.add(cartItem);
+	    		orderItems.add(orderItem);
 	    	}
 	    } else {
 	    	User user = this.userRepository.findByLogin(auth.getName());
-	    	Cart cart = this.cartRepository.findFirstByUserAndStatus(user, "new");
+	    	Order order = this.orderRepository.findFirstByUserAndStatus(user, "new");
 	    	
-	    	if (cart == null) {
-	    		cart = new Cart(user, "new", new Date());
-	    		this.cartRepository.save(cart);
+	    	if (order == null) {
+	    		order = new Order(user, "new", new Date());
+	    		this.orderRepository.save(order);
 	    	}
 	    	
-	    	CartItem existedCartItem = this.cartItemRepository.findFirstByCartAndProduct(cart, prod);
+	    	OrderItem existedCartItem = this.orderItemRepository.findFirstByOrderAndProduct(order, prod);
 	    	if (existedCartItem == null) {
-	    		cartItem.setCart(cart);
-	    		this.cartItemRepository.save(cartItem);
+	    		orderItem.setOrder(order);
+	    		this.orderItemRepository.save(orderItem);
 	    	} else {
 	    		existedCartItem.setAmount(existedCartItem.getAmount() + 1);
-	    		this.cartItemRepository.save(existedCartItem);
+	    		this.orderItemRepository.save(existedCartItem);
 	    	}
 	    	
 	    }
@@ -96,19 +96,19 @@ public class ProductCartImpl implements ProductCart {
 	public void buyProducts() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = this.userRepository.findByLogin(auth.getName());
-		Cart cart = this.cartRepository.findFirstByUserAndStatus(user, "new");
-		cart.setStatus("done");
-		this.cartRepository.save(cart);
+		Order order = this.orderRepository.findFirstByUserAndStatus(user, "new");
+		order.setStatus("done");
+		this.orderRepository.save(order);
 		
 	}
 
 	@Override
-	public void removeCartItem(Long itemId) {
+	public void removeOrderItem(Long itemId) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth.getName() == "anonymousUser") {
-			cartItems.removeIf(item -> item.getProduct().getId() == itemId);
+			orderItems.removeIf(item -> item.getProduct().getId() == itemId);
 		} else {
-			this.cartItemRepository.delete(itemId);
+			this.orderItemRepository.delete(itemId);
 		}
 		
 	}

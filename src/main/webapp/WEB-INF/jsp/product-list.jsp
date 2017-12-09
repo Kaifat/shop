@@ -3,38 +3,44 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
   
-    <form:form modelAttribute="searchForm" cssClass="search-box">
-        <form:input path="searchText"/>
-        <input type="submit" class="btn btn-success" value="Search"/>
-    </form:form>
+  	<div class="row text-center">
+  		<div class="col-12 offset-0 col-md-6 offset-md-3 col-lg-6 offset-lg-3">
+	    <form:form modelAttribute="searchForm">
+	    	<div class="input-group">
+	        	<form:input path="searchText" class="form-control" placeholder="Search..." />
+	        	<span class="input-group-btn">
+			        <button class="btn btn-primary" type="submit">Go!</button>
+			    </span>
+	        </div>
+	    </form:form>
+	    </div>
+   </div>
 
-    <ul class="prod-list row">
-    	
-	    <c:forEach items="${products}" var="prod">
-	        <li class="col-md-6" id="product_${prod.id}">
-	            <h3>${prod.title} ( ${prod.balance} )</h3>
-	            <img alt="${prod.title}" src="data:${prod.imageMimeType};base64,${prod.imageString}">
-	            <p>${prod.description}</p>
-	            
-	            <div class="action-box">
-                    
-                    <a href="/cart?add&prodId=${prod.id}" class="btn btn-info" role="button">Add to Cart</a>
-                    <a href="/order?prodId=${prod.id}" class="btn btn-info" role="button">Buy</a>
+	<!-- Page Features -->
+      <div class="row text-center">
+	
+		<c:forEach items="${products}" var="prod">
+	        <div class="product-item col-lg-3 col-md-6 mb-4" id="product_${prod.id}">
+	          <div class="card">
+	            <img class="card-img-top" alt="${prod.title}" 
+	            	src="data:${prod.imageMimeType};base64,${prod.imageString}">
+	            <div class="card-body">
+	              <h4 class="card-title">${prod.title} (${prod.balance})</h4>
+	              <p class="card-text">${prod.description}</p>
+	            </div>
+	            <div class="card-footer">
+	              	<a href="/order?add&prodId=${prod.id}" class="btn btn-primary" role="button">Add to Cart</a>
+                    <a href="/order?prodId=${prod.id}" class="btn btn-primary" role="button">Buy</a>
                     
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <a href="/product/${prod.id}" class="btn btn-warning" role="button">Edit</a>
                     </sec:authorize>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
-                        <button class="btn btn-info product_delete" type="submit">Delete</button>
+                        <button class="btn btn-danger product_delete" type="submit">Delete</button>
                     </sec:authorize>
-                </div>
-	           
-	        </li>
-	    </c:forEach>
-    </ul>
-
-     <div class="action-box">
-        <sec:authorize access="hasRole('ROLE_ADMIN')">
-            <a href="/product" class="btn btn-warning" role="button">New product</a>
-        </sec:authorize>
-    </div>
+	            </div>
+	          </div>
+	        </div>
+         </c:forEach>
+       </div>
+       <!-- /.row -->

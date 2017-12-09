@@ -9,9 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-public class Cart {
+@Table(name="\"Order\"")
+public class Order {
 	
 	@Id
     @GeneratedValue
@@ -26,15 +28,31 @@ public class Cart {
 	
 	@Column(name = "date")
 	private Date date;
+	
+	@Column(name = "address")
+	private String address;
+	
+	@Column(name = "phone")
+	private String phone;
+	
+	@Column(name = "email")
+	private String email;
 
 
-	public Cart() {
+	public Order() {
 	}
 	
-	public Cart(User user, String status, Date date) {
+	public Order(User user, String status, Date date) {
+		this(user, status, date, "", "", "");
+	}
+	
+	public Order(User user, String status, Date date, String address, String phone, String email) {
 		this.user = user;
 		this.status = status;
 		this.date = date;
+		this.address = address;
+		this.phone = phone;
+		this.email = email;
 	}
 	
 	public Long getId() {
@@ -67,6 +85,30 @@ public class Cart {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+    
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

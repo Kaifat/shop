@@ -1,5 +1,24 @@
+body {
+  padding-top: 54px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+.card {
+  height: 100%;
+}
+
+.row {
+	padding-top: 15px;
+}
+
+
 /* Elements disposition and block size */
-.center {
+/*.center {
     margin: auto;
     width: 600px;
 }
@@ -44,3 +63,4 @@
 	float: right;
 	margin-left: 10px;
 }
+ */

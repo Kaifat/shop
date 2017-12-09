@@ -3,23 +3,30 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-	<form name="f" th:action="@{/login}" method="post">
-		<fieldset>
-		    <legend>Please Login</legend>
-		    <div th:if="${param.error}" class="alert alert-error">
-		    	Invalid username and password.
-			</div>
-			<div th:if="${param.logout}" class="alert alert-success">
-		        You have been logged out.
-		    </div>
-		    <div class="form-group">
-			    <label for="username">Username</label>
-			    <input class="form-control" type="text" id="username" name="username"/>
-			    <label for="password">Password</label>
-			    <input class="form-control" type="password" id="password" name="password"/>
-			    <div class="form-actions">
-			        <button type="submit" class="btn">Log in</button>
+	<div class="row">
+	  	<div class="col-12 offset-0 col-md-6 offset-md-3 col-lg-6 offset-lg-3">
+			<form name="f" th:action="@{/login}" method="post">
+				<div class="text-center">
+				    <h2 class="text-center">Please Login</h2>
+				    <div th:if="${param.error}" class="alert alert-error">
+				    	Invalid username and password.
+					</div>
+					<div th:if="${param.logout}" class="alert alert-success">
+				        You have been logged out.
+				    </div>
 			    </div>
-		   	</div>
-		</fieldset>
-	</form>
+				    
+				    <div class="form-group">
+					    <label for="username">Username</label>
+					    <input class="form-control" type="text" id="username" name="username"/>
+					 </div>
+					 <div class="form-group">
+					    <label for="password">Password</label>
+					    <input class="form-control" type="password" id="password" name="password"/>
+					 </div>
+					 <div class="form-group">
+					        <button type="submit" class="btn btn-primary">Log in</button>
+				   	</div>
+			</form>
+		</div>
+   </div>

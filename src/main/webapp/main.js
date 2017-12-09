@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	$(document).on("click","button.product_delete",function() {
 		
-		var productRow =  $(this).parents("li");
+		var productRow =  $(this).parents(".product-item");
 		console.log(productRow);
 		var productId = productRow.attr('id');
 		productId = productId.match(/\d+/);

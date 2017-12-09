@@ -40,9 +40,22 @@
    </definition>
    
    <!-- Cart Page -->
-   <definition name="cart-list" extends="base-definition">  
+   <definition name="cart" extends="base-definition">  
        <put-attribute name="title" value="Cart" />  
-       <put-attribute name="body" value="/WEB-INF/jsp/cart-list.jsp" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/cart.jsp" />  
+   </definition>
+   
+   <!-- Delivery Page -->
+   <definition name="delivery" extends="base-definition">  
+       <put-attribute name="title" value="Delivery" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/delivery.jsp" />  
+   </definition>
+   
+    <!-- Update User Details Page -->
+   <definition name="user-details" extends="base-definition">  
+       <put-attribute name="title" value="Update User Details" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/user-details.jsp" />  
    </definition> 
+   
 
 </tiles-definitions>

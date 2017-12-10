@@ -93,6 +93,23 @@ public class ProductCartImpl implements ProductCart {
 	}
 	
 	@Override
+	public void changeAmount(Long id, int amount) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    
+	    if (auth.getName() == "anonymousUser") {
+	    	for (OrderItem item : orderItems) { 
+	    		if(item.getProduct().getId().equals(id)) { 
+			       item.setAmount(amount);
+			   }
+	    	}
+	    } else {
+	    	OrderItem existedCartItem = this.orderItemRepository.findOne(id);
+	    	existedCartItem.setAmount(amount);
+    		this.orderItemRepository.save(existedCartItem);
+	    }
+	}
+	
+	@Override
 	public void buyProducts() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = this.userRepository.findByLogin(auth.getName());

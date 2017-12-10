@@ -11,6 +11,8 @@ public interface ProductCart {
 
 	void addProduct(Product prod);
 	
+	void changeAmount(Long id, int amount);
+	
 	void buyProducts();
 
 	void removeOrderItem(Long itemId);

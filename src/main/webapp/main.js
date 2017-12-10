@@ -53,6 +53,40 @@ $(document).ready(
 					});
 			
 			$(document).on(
+					"focusout",
+					"input.product-amount",
+					function() {
+
+						var productRow = $(this).parents(".order-item");
+						var productId = productRow.attr('id');
+						var res = productId.match(/\d+/);
+						
+						if (res.length) {
+							var postData = {
+									"prodId": res[0],
+									"amount": $(this).val()
+									};
+	
+							$.ajax({
+								type : "POST",
+								url : window.location.protocol + '//'
+									+ window.location.host + "/order/change-amount",
+								contentType: 'application/json',
+							    data: JSON.stringify(postData),
+							    
+								success : function(resultMsg) {
+									console.log( resultMsg );
+									 location.reload();
+								},
+							    error: function(jqXhr, textStatus, errorThrown){
+							        console.log(errorThrown);
+							    }
+							});
+						}
+					});
+			
+			
+			$(document).on(
 					"click",
 					"button.delete-from-cart",
 					function() {

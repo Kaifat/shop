@@ -29,8 +29,8 @@
 	              <p class="card-text">${prod.description}</p>
 	            </div>
 	            <div class="card-footer">
-	              	<button class="btn btn-danger add-to-cart" type="button">Add to Cart</button>
-                    <a href="/order?prodId=${prod.id}" class="btn btn-primary" role="button">Buy</a>
+	              	<button class="btn btn-primary add-to-cart" type="button">Add to Cart</button>
+                    <a href="/order?prodId=${prod.id}" class="btn btn-success" role="button">Buy</a>
                     
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <a href="/product/${prod.id}" class="btn btn-warning" role="button">Edit</a>

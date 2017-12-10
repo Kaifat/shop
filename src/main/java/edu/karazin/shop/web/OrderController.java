@@ -37,14 +37,12 @@ public class OrderController {
 	public String list(Model model) {
 		model.addAttribute("cartItems", productCart.getOrderItems());
 		int totalCount = productCart.getOrderItems().stream().mapToInt(item -> item.getAmount()).sum();
-		model.addAttribute("totalCount", totalCount);					
+		model.addAttribute("totalCount", totalCount);
+		double totalSum = productCart.getOrderItems().stream()
+				.map(item -> {return item.getPrice()*item.getAmount();})
+				.reduce(0.0, (x, y) -> x + y);
+		model.addAttribute("totalSum", totalSum);
 		return "cart";
-	}
-
-	@RequestMapping(method = RequestMethod.GET, params = "add")
-	public String addProduct(@RequestParam("prodId") Long prodId, Model model) {		
-		productCart.addProduct(productService.getProduct(prodId));
-		return list(model);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, params = "buy")
@@ -63,12 +61,5 @@ public class OrderController {
 //		productCart.buyProducts();
 //		return "delivery";
 //	}
-	
-	@RequestMapping(method = RequestMethod.GET, params = "delete")
-	public String removeProduct(@RequestParam("itemId") Long itemId, Model model) {
-		productCart.removeOrderItem(itemId);
-		return list(model);
-	}
-
 	
 }

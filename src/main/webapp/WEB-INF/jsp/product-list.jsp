@@ -29,14 +29,14 @@
 	              <p class="card-text">${prod.description}</p>
 	            </div>
 	            <div class="card-footer">
-	              	<a href="/order?add&prodId=${prod.id}" class="btn btn-primary" role="button">Add to Cart</a>
+	              	<button class="btn btn-danger add-to-cart" type="button">Add to Cart</button>
                     <a href="/order?prodId=${prod.id}" class="btn btn-primary" role="button">Buy</a>
                     
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <a href="/product/${prod.id}" class="btn btn-warning" role="button">Edit</a>
                     </sec:authorize>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
-                        <button class="btn btn-danger product_delete" type="submit">Delete</button>
+                        <button class="btn btn-danger product_delete" type="button">Delete</button>
                     </sec:authorize>
 	            </div>
 	          </div>

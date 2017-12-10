@@ -13,6 +13,6 @@ public interface ProductCart {
 	
 	void buyProducts();
 
-	void removeOrderItem(Long orderItemId);
+	void removeOrderItem(Long itemId);
 
 }

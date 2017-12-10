@@ -27,7 +27,14 @@
 			</div>
 			<div class="panel-body">
 				<c:forEach items="${cartItems}" var="cartItem">
-					<div class="row">
+					<div class="row order-item" id="product-
+						<sec:authorize access="!hasRole('ROLE_ANONYMOUS')">
+					 		${cartItem.getId()}
+						</sec:authorize>
+						<sec:authorize access="hasRole('ROLE_ANONYMOUS')">
+							${cartItem.getProduct().id}
+						</sec:authorize>
+					">
 						<div class="col-3">
 							<img class="img-responsive" alt="${cartItem.getProduct().title}"
 								src="data:${cartItem.getProduct().imageMimeType};base64,${cartItem.getProduct().imageString}"
@@ -45,26 +52,25 @@
 										<strong>${cartItem.price} <span class="text-muted">*</span></strong>
 									</h6>
 								</div>
-								<div class="col-6">
+								<div class="col-5">
 									<input type="text" class="form-control"
 										value="${cartItem.amount}">
 								</div>
-								<div class="col-2">
-									<button type="button" class="btn btn-link">
-										<span class="glyphicon glyphicon-trash">x</span>
+								<div class="col-3">
+									<button type="button" class="btn btn-danger delete-from-cart">
+										x
 									</button>
 								</div>
 							</div>
 						</div>
 					</div>
-					<hr>
 				</c:forEach>
 			</div>
 			<div class="panel-footer">
 					<div class="row text-center">
 						<div class="col-9">
 							<h4 class="text-right">Total Amount <strong>${totalCount}</strong></h4>
-							<h4 class="text-right">Total Price <strong>$50.00</strong></h4>
+							<h4 class="text-right">Total Price <strong>\$ ${totalSum}</strong></h4>
 						</div>
 						<div class="col-3">
 							<a href="/order?buy" class="btn-block btn btn-primary" role="button">Checkout</a>

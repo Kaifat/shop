@@ -3,17 +3,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<!--  <div class="action-box">
-	<a href="/order" class="btn btn-warning" role="button">Cart</a>
-	<sec:authorize access="hasRole('ROLE_ANONYMOUS')">
-		<a href="/login" class="btn btn-warning" role="button">Login</a>
-		<a href="/register" class="btn btn-warning" role="button">Registration</a>
-	</sec:authorize>
-	<sec:authorize access="!hasRole('ROLE_ANONYMOUS')">
-		<a href="/logout" class="btn btn-warning" role="button">Logout</a>
-	</sec:authorize>
-</div>  -->
-
 <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">

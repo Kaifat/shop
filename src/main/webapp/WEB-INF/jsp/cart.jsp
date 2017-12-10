@@ -53,7 +53,7 @@
 									</h6>
 								</div>
 								<div class="col-5">
-									<input type="text" class="form-control product-amount"
+									<input type="number" class="form-control product-amount"
 										value="${cartItem.amount}">
 								</div>
 								<div class="col-3">

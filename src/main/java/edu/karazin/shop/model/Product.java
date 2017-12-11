@@ -85,7 +85,7 @@ public class Product extends BaseEntity {
 	}
 	
 	public void setImage(byte[] image) {
-		if (image != null) {
+		if (image != null && image.length > 0) {
 			this.image = image;
 		}
 	}
@@ -109,7 +109,9 @@ public class Product extends BaseEntity {
 	}
 
 	public void setImageMimeType(String imageMimeType) {
-		this.imageMimeType = imageMimeType;
+		if (imageMimeType != null && !imageMimeType.isEmpty()) {
+			this.imageMimeType = imageMimeType;
+		}
 	}
 
 	public double getCost() {

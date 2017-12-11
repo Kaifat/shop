@@ -32,6 +32,7 @@ public class ProductEditController {
 	public String newProduct(Model model) {
 		log.info("Render form for new product");
 
+		model.addAttribute("form_title", "Add new product");
 		model.addAttribute("product", new Product(null, "", ""));
 		return "product-edit";
 	}
@@ -45,6 +46,7 @@ public class ProductEditController {
 			throw new NotFoundException();
 		}
 
+		model.addAttribute("form_title", "Edit product");
 		model.addAttribute("product", p);
 		return "product-edit";
 	}
@@ -56,8 +58,11 @@ public class ProductEditController {
 		
 		log.info("Add product");
 		
-		product.setImage(file.getBytes());
-		product.setImageMimeType(file.getContentType());
+		if (file != null && !file.isEmpty()) {
+			product.setImage(file.getBytes());
+			product.setImageMimeType(file.getContentType());
+		}
+		
 		productService.addProduct(product);
 		
 		return "redirect:/products";
@@ -70,9 +75,13 @@ public class ProductEditController {
 		
 		log.info("Update product");
 		
-		if (file != null) {
+		if (file != null && !file.isEmpty()) {
 			product.setImage(file.getBytes());
 			product.setImageMimeType(file.getContentType());
+		} else {
+			Product oldProduct = productService.getProduct(product.getId());
+			product.setImage(oldProduct.getImage());
+			product.setImageMimeType(oldProduct.getImageMimeType());
 		}
 		
 		productService.updateProduct(product);

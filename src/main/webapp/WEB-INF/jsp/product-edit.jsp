@@ -5,7 +5,10 @@
 
 <div class="row">
 	<div class="col-12 offset-0 col-md-6 offset-md-3 col-lg-6 offset-lg-3">
-		<h2 class="text-center">Add new product</h2>
+		<h2 class="text-center">
+			${form_title}
+		</h2>
+							
 		<form:form modelAttribute="product" enctype="multipart/form-data">
 			<div class="form-group">
 				<form:label path="title">Title:</form:label>

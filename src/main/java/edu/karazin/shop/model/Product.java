@@ -6,11 +6,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.hibernate.annotations.Loader;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
-@Entity
-public class Product {
+
+
+@Entity(name = "Product")
+@Table(name = "product")
+@SQLDelete(sql =
+    "UPDATE product " +
+    "SET deleted = true " +
+    "WHERE id = ?")
+//@Where(clause = "deleted = false")
+public class Product extends BaseEntity {
 
 	@Id
     @GeneratedValue

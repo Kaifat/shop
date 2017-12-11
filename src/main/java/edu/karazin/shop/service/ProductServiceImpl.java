@@ -7,46 +7,48 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.karazin.shop.dao.ProductDao;
+import edu.karazin.shop.dao.ProductRepository;
 import edu.karazin.shop.model.Product;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
-	private final ProductDao dao;
-
-	public ProductServiceImpl(@Autowired ProductDao dao) {
-		this.dao = dao;
-	}
+	private final ProductRepository productRepository;
+	
+	@Autowired
+    public ProductServiceImpl(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
 	@Override
 	public Product getProduct(Long id) {
-		return dao.findById(id);
+		return productRepository.findOne(id);
 	}
 
 	@Override
 	public List<Product> searchProducts(String searchText) {
 		if (searchText == null || searchText.trim().isEmpty()) {
-			return dao.findAll();
+			return (List<Product>) productRepository.findAll();
 		}
-		return dao.findByText(searchText);
+		
+		return productRepository.findByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining(searchText, searchText);
 	}
 
 	@Override
 	@Transactional
 	public Long addProduct(Product prod) {
-		return dao.save(prod).getId();
+		return productRepository.save(prod).getId();
 	}
 
 	@Override
 	@Transactional
 	public void updateProduct(Product prod) {
-		dao.save(prod);
+		productRepository.save(prod);
 	}
 
 	@Override
 	@Transactional
 	public void removeProduct(Long id) {
-		dao.delete(id);
+		productRepository.delete(id);
 	}
 }

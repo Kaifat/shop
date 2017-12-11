@@ -38,8 +38,7 @@ $(document).ready(
 								"prodId" : res[0]
 							};
 
-							$
-									.ajax({
+							$.ajax({
 										type : "POST",
 										url : window.location.protocol + '//'
 												+ window.location.host
@@ -56,20 +55,56 @@ $(document).ready(
 									});
 						}
 					});
-
-			$(document).on("focusin", "input.product-amount", function() {
-				$(this).data('val', $(this).val());
-			}).on(
-					"focusout",
-					"input.product-amount",
+			
+			$(document).on(
+					"click",
+					"button.buy-product",
 					function() {
 
-						var oldAmount = $(this).data('val');
+						var productRow = $(this).parents(".product-item");
+						var productId = productRow.attr('id');
+						var res = productId.match(/\d+/);
+
+						if (res.length) {
+							var postData = {
+								"prodId" : res[0]
+							};
+
+							$.ajax({
+										type : "POST",
+										url : window.location.protocol + '//'
+												+ window.location.host
+												+ "/order/add",
+										contentType : 'application/json',
+										data : JSON.stringify(postData),
+										success : function(resultMsg) {
+											console.log(resultMsg);
+											top.location.href="/order"
+										},
+										error : function(jqXhr, textStatus,
+												errorThrown) {
+											console.log(errorThrown);
+										}
+									});
+						}
+					});
+
+			$(document)
+//			.on("focusin", "input.product-amount", function() {
+//				$(this).data('val', $(this).val());
+//			})
+			.on(
+					"change",
+					"input.product-amount",
+					function() {
+						console.log("11111");
+
+//						var oldAmount = $(this).data('val');
 						var newAmount = $(this).val();
 
-						if (oldAmount == newAmount || newAmount <= 0) {
-							return false;
-						}
+//						if (oldAmount == newAmount || newAmount <= 0) {
+//							return false;
+//						}
 
 						var productRow = $(this).parents(".order-item");
 						var productId = productRow.attr('id');
@@ -123,7 +158,8 @@ $(document).ready(
 								contentType : 'application/json',
 								data : JSON.stringify(postData),
 								success : function(resultMsg) {
-									productRow.remove();
+//									productRow.remove();
+									location.reload();
 								},
 								error : function(jqXhr, textStatus,
 										errorThrown) {

@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.core.Authentication;
@@ -16,6 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import edu.karazin.shop.dao.OrderItemRepository;
 import edu.karazin.shop.dao.OrderRepository;
+import edu.karazin.shop.dao.ProductRepository;
 import edu.karazin.shop.dao.UserRepository;
 import edu.karazin.shop.model.Order;
 import edu.karazin.shop.model.OrderItem;
@@ -24,23 +25,25 @@ import edu.karazin.shop.model.User;
 
 @Component
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.INTERFACES)
-public class ProductCartImpl implements ProductCart {
+public class OrderServiceImpl implements OrderService {
 
 	
-//	private static final Logger log = LoggerFactory.getLogger(ProductCartImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
 	
 	private final OrderRepository orderRepository;
 	private final OrderItemRepository orderItemRepository;
 	private final UserRepository userRepository;
+	private final ProductRepository productRepository;
 	private final List<OrderItem> orderItems = new ArrayList<>();
 	
 	
 	@Autowired
-    public ProductCartImpl(OrderRepository orderRepository, OrderItemRepository orderItemRepository, 
-    		UserRepository userRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrderItemRepository orderItemRepository, 
+    		UserRepository userRepository, ProductRepository productRepository) {
         this.orderRepository = orderRepository;
         this.orderItemRepository = orderItemRepository;
         this.userRepository = userRepository;
+        this.productRepository = productRepository;
     }
 
 	@Override
@@ -109,14 +112,55 @@ public class ProductCartImpl implements ProductCart {
 	    }
 	}
 	
+	// TODO: need refactoring
 	@Override
-	public void buyProducts() {
+	public void checkout(String address, String email, String phone) {
+		
+		Order order = new Order();
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = this.userRepository.findByLogin(auth.getName());
-		Order order = this.orderRepository.findFirstByUserAndStatus(user, "new");
+		String userLogin = auth.getName();
+		if (userLogin == "anonymousUser") {
+			order.setStatus("new");
+			order = this.orderRepository.save(order);
+			for (OrderItem item : orderItems) {								
+				item.setOrder(order);				
+	    		this.orderItemRepository.save(item);
+	    	}			
+		} else {
+			User user = this.userRepository.findByLogin(userLogin);
+			order = this.orderRepository.findFirstByUserAndStatus(user, "new");
+		}
+			
+		// decrease product balance for product according to each order item
+		this.getOrderItems().forEach(item -> {
+			Product product = item.getProduct();
+			product.setBalance(product.getBalance() - item.getAmount());
+			this.productRepository.save(product);
+		});		
+		
+		order.setAddress(address);
+		order.setEmail(email);
+		order.setPhone(phone);
 		order.setStatus("done");
 		this.orderRepository.save(order);
+	
+	}
+	
+	@Override
+	public boolean allItemsAreAvaliable() {
 		
+		if (this.getOrderItems().isEmpty()) {
+			return false;
+		}
+
+		for (OrderItem item : this.getOrderItems()) {
+			if (item.getAmount() > item.getProduct().getBalance()) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 	@Override

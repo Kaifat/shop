@@ -30,6 +30,4 @@ public class ProductRestController {
 		return "success";
 	}
 
-
-
 }

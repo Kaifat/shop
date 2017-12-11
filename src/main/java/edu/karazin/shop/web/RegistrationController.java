@@ -38,11 +38,6 @@ public class RegistrationController {
 	 @RequestMapping(method = RequestMethod.POST)
 	    public String saveUser(@Valid User user, BindingResult result, Model model) {
 	 
-//	        if (result.hasErrors()) {
-//	            return "registration";
-//	        }
-		 	
-//		 	user.setRole(Role.ROLE_ADMIN);
 		 	user.setRole(Role.ROLE_USER);		 
 	        userService.saveUser(user);
 	 

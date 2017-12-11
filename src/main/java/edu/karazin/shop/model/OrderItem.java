@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +28,7 @@ public class OrderItem {
 	@JoinColumn(name = "order_id")
 	private Order order;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER) // CascadeType.MERGE
 	@JoinColumn(name = "product_id")
 	private Product product;
 
@@ -80,12 +81,12 @@ public class OrderItem {
 	}
 
 	public void setAmount(int amount) {
-		Product prod = this.getProduct();
-		int balance = prod.getBalance();
-		if (balance > amount) {
+//		Product prod = this.getProduct();
+//		int balance = prod.getBalance();
+//		if (balance > amount) {
 			this.amount = amount;
 //			prod.setBalance(balance - amount);
-		}
+//		}
 	}
 
 	public double getPrice() {
@@ -95,5 +96,5 @@ public class OrderItem {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-
+	
 }

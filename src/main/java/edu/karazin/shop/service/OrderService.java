@@ -5,7 +5,7 @@ import java.util.List;
 import edu.karazin.shop.model.OrderItem;
 import edu.karazin.shop.model.Product;
 
-public interface ProductCart {
+public interface OrderService {
 	
 	List<OrderItem> getOrderItems();
 
@@ -13,7 +13,9 @@ public interface ProductCart {
 	
 	void changeAmount(Long id, int amount);
 	
-	void buyProducts();
+	void checkout(String address, String email, String phone);
+	
+	boolean allItemsAreAvaliable();
 
 	void removeOrderItem(Long itemId);
 

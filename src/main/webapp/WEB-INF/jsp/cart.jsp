@@ -40,19 +40,20 @@
 								src="data:${cartItem.getProduct().imageMimeType};base64,${cartItem.getProduct().imageString}"
 								height="70" width="100">
 						</div>
-						<div class="col-5">
+						<div class="col-4">
 							<h4 class="product-name">
 								<strong>${cartItem.getProduct().title}</strong>
+								
 							</h4>
 						</div>
-						<div class="col-4">
+						<div class="col-5">
 							<div class="row">
 								<div class="col-4 text-right">
 									<h6>
 										<strong>${cartItem.price} <span class="text-muted">*</span></strong>
 									</h6>
 								</div>
-								<div class="col-5">
+								<div class="col-5 has-error form-group">
 									<input type="number" class="form-control product-amount"
 										value="${cartItem.amount}">
 								</div>
@@ -62,6 +63,11 @@
 									</button>
 								</div>
 							</div>
+						</div>
+						<div class="col-12 text-danger text-right">
+							<c:if test = "${cartItem.amount > cartItem.getProduct().getBalance()}">
+								Product balance by this position only <c:out value="${cartItem.getProduct().getBalance()}"/>
+							</c:if>
 						</div>
 					</div>
 				</c:forEach>
@@ -73,7 +79,7 @@
 							<h4 class="text-right">Total Price <strong>\$ ${totalSum}</strong></h4>
 						</div>
 						<div class="col-3">
-							<a href="/order?buy" class="btn-block btn btn-primary" role="button">Checkout</a>
+							<a href="/order/checkout" class="btn-block btn btn-primary" role="button">Checkout</a>
 						</div>
 					</div>
 				</div>

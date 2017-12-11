@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.karazin.shop.model.Product;
-import edu.karazin.shop.service.ProductCart;
+import edu.karazin.shop.service.OrderService;
 import edu.karazin.shop.service.ProductService;
 
 @RestController
@@ -22,17 +22,17 @@ public class OrderRestController {
 	
 	private static final Logger log = LoggerFactory.getLogger(OrderRestController.class);
 
-	private final ProductCart productCart;
+	private final OrderService orderService;
 	private final ProductService productService;
 	
-	public OrderRestController(@Autowired ProductCart productCart, @Autowired ProductService productService) {
-		this.productCart = productCart;
+	public OrderRestController(@Autowired OrderService orderService, @Autowired ProductService productService) {
+		this.orderService = orderService;
 		this.productService = productService;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, path = "add")
 	public String addProduct(@RequestBody Map<String, String> params) {
-		productCart.addProduct(productService.getProduct(Long.parseLong(params.get("prodId"), 10)));
+		orderService.addProduct(productService.getProduct(Long.parseLong(params.get("prodId"), 10)));
 		log.info("Product added");
 		return "success";
 	}
@@ -43,23 +43,14 @@ public class OrderRestController {
 		Long id = Long.parseLong(params.get("prodId"), 10);
 		int amount = Integer.parseInt(params.get("amount"), 10);
 		
-		productCart.changeAmount(id, amount);
-		
-//		model.addAttribute("cartItems", productCart.getOrderItems());
-//		
-//		int totalCount = productCart.getOrderItems().stream().mapToInt(item -> item.getAmount()).sum();
-//		model.addAttribute("totalCount", totalCount);
-//		double totalSum = productCart.getOrderItems().stream()
-//				.map(item -> {return item.getPrice()*item.getAmount();})
-//				.reduce(0.0, (x, y) -> x + y);
-//		model.addAttribute("totalSum", totalSum);
+		orderService.changeAmount(id, amount);
 		return "success";
 	}
 
 
 	@RequestMapping(method = RequestMethod.DELETE, path = "delete-order-item")
 	public String deleteOrderItem(@RequestBody Map<String, String> params) {
-		productCart.removeOrderItem(Long.parseLong(params.get("id"), 10));
+		orderService.removeOrderItem(Long.parseLong(params.get("id"), 10));
 		log.info("=====================");
 		log.info("Product from cart deleted");
 		return "success";

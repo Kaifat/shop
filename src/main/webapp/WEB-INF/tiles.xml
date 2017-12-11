@@ -39,16 +39,28 @@
        <put-attribute name="body" value="/WEB-INF/jsp/registration.jsp" />
    </definition>
    
+    <!-- Registration Success Page -->
+   <definition name="registration-success" extends="base-definition">  
+       <put-attribute name="title" value="Registration Success" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/registration-success.jsp" />
+   </definition>
+   
    <!-- Cart Page -->
    <definition name="cart" extends="base-definition">  
        <put-attribute name="title" value="Cart" />  
        <put-attribute name="body" value="/WEB-INF/jsp/cart.jsp" />  
    </definition>
    
-   <!-- Delivery Page -->
-   <definition name="delivery" extends="base-definition">  
-       <put-attribute name="title" value="Delivery" />  
-       <put-attribute name="body" value="/WEB-INF/jsp/delivery.jsp" />  
+   <!-- Checkout Page -->
+   <definition name="checkout" extends="base-definition">  
+       <put-attribute name="title" value="Checkout" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/checkout.jsp" />  
+   </definition>
+   
+   <!-- Checkout Success Page -->
+   <definition name="checkout-success" extends="base-definition">  
+       <put-attribute name="title" value="Checkout Success" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/checkout-success.jsp" />  
    </definition>
    
     <!-- Update User Details Page -->

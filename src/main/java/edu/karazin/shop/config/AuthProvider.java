@@ -9,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -41,7 +42,8 @@ public class AuthProvider implements AuthenticationProvider {
     }
 
     private boolean isValidCredentials(Authentication authentication, User user) {
-        return user != null &&  user.getPassword().equals(authentication.getCredentials());
+//        return user != null &&  user.getPassword().equals(authentication.getCredentials());
+    	return user != null && BCrypt.checkpw((String) authentication.getCredentials(), user.getPassword());
     }
 
     @Override

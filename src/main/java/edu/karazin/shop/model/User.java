@@ -2,6 +2,8 @@ package edu.karazin.shop.model;
 
 import javax.persistence.*;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 @Entity
 public class User {
 	
@@ -28,7 +30,8 @@ public class User {
 	@Column(name = "phone")
 	private String phone;
 	
-	
+	@Transient
+	private String salt = BCrypt.gensalt();
 	
 	public User() {
 	}
@@ -40,7 +43,7 @@ public class User {
 	public User(String login, String password, Role role, String lastName, String firstName, 
 					String email, String address, String phone) {
 		this.login = login;
-		this.password = password;
+		this.password = BCrypt.hashpw(password, salt);
 		this.role = role;
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -94,7 +97,7 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = BCrypt.hashpw(password, salt);
 	}
 	
 	public String getEmail() {

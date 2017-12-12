@@ -75,4 +75,12 @@ public class OrderController {
 		model.addAttribute("success", "Order created successfully. Thank you!");
 		return "checkout-success";
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, path = "list")
+	public String getOrderList(Model model) {
+		log.info("Show Order List");
+		model.addAttribute("orderList", orderService.getOrders());
+		return "order-list";
+	}
+
 }

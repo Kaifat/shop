@@ -47,7 +47,6 @@ public class OrderRestController {
 		return "success";
 	}
 
-
 	@RequestMapping(method = RequestMethod.DELETE, path = "delete-order-item")
 	public String deleteOrderItem(@RequestBody Map<String, String> params) {
 		orderService.removeOrderItem(Long.parseLong(params.get("id"), 10));
@@ -55,6 +54,5 @@ public class OrderRestController {
 		log.info("Product from cart deleted");
 		return "success";
 	}
-
 
 }

@@ -162,6 +162,11 @@ public class OrderServiceImpl implements OrderService {
 		
 		return true;
 	}
+	
+	@Override
+	public List<Order> getOrders() {
+		return (List<Order>) orderRepository.findAll();
+	}
 
 	@Override
 	public void removeOrderItem(Long itemId) {

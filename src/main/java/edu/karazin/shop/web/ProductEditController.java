@@ -33,7 +33,7 @@ public class ProductEditController {
 		log.info("Render form for new product");
 
 		model.addAttribute("form_title", "Add new product");
-		model.addAttribute("product", new Product(null, "", ""));
+		model.addAttribute("product", new Product("", ""));
 		return "product-edit";
 	}
 

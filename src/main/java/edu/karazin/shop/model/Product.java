@@ -1,12 +1,15 @@
 package edu.karazin.shop.model;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -15,13 +18,18 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 
-
 @Entity(name = "Product")
 @Table(name = "product")
 @SQLDelete(sql =
     "UPDATE product " +
     "SET deleted = true " +
     "WHERE id = ?")
+//@Loader(namedQuery = "findAllByDeleted")
+//@NamedQuery(name = "findAllByDeleted", query =
+//    "SELECT p " +
+//    "FROM Product p " +
+//    "WHERE " +
+//    "p.deleted = ?1")
 //@Where(clause = "deleted = false")
 public class Product extends BaseEntity {
 
@@ -35,6 +43,10 @@ public class Product extends BaseEntity {
 	@Lob
 	private byte[] image;
 	
+	@OneToMany(mappedBy="product", cascade = CascadeType.REMOVE)
+//	@SQLDelete(sql="DELETE FROM ORDER_ITEM WHERE product_id = ?")
+    private List<OrderItem> orderItems;
+	
 	private String imageMimeType;
 	private double cost;
 	private int balance;
@@ -42,12 +54,11 @@ public class Product extends BaseEntity {
 	public Product() {
 	}
 
-	public Product(Long id, String title, String description) {
-		this(id, title, description, null, null, 0.0d, 0);
+	public Product(String title, String description) {
+		this(title, description, null, null, 0.0d, 0);
 	}
 
-	public Product(Long id, String title, String description, byte[] image, String imageMimeType, double cost, int balance) {
-		this.id = id;
+	public Product(String title, String description, byte[] image, String imageMimeType, double cost, int balance) {
 		this.title = title;
 		this.description = description;
 		this.image = image;

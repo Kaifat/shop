@@ -21,6 +21,12 @@
        <put-attribute name="body" value="/WEB-INF/jsp/product-list.jsp" />  
    </definition>
    
+   <!-- Deleted Products Page -->
+   <definition name="product-list-deleted" extends="base-definition">  
+       <put-attribute name="title" value="Deleted Products" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/product-list-deleted.jsp" />  
+   </definition>
+   
    <!-- Product Edit -->
    <definition name="product-edit" extends="base-definition">  
        <put-attribute name="title" value="Product Edit" />  
@@ -69,5 +75,10 @@
        <put-attribute name="body" value="/WEB-INF/jsp/user-details.jsp" />  
    </definition> 
    
+   <!-- Order List Page -->
+   <definition name="order-list" extends="base-definition">  
+       <put-attribute name="title" value="Order List" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/order-list.jsp" />  
+   </definition>
 
 </tiles-definitions>

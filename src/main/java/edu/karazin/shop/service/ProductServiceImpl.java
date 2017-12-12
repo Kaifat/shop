@@ -26,9 +26,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> searchProducts(String searchText) {
+	public List<Product> searchProducts(String searchText, boolean deleted) {
 		if (searchText == null || searchText.trim().isEmpty()) {
-			return (List<Product>) productRepository.findAll();
+			return (List<Product>) productRepository.findAllByDeleted(deleted);
 		}
 		
 		return productRepository.findByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining(searchText, searchText);

@@ -8,7 +8,7 @@ public interface ProductService {
 
 	Product getProduct(Long id);
 
-	List<Product> searchProducts(String searchText);
+	List<Product> searchProducts(String searchText, boolean deleted);
 
 	Long addProduct(Product prod);
 

@@ -8,15 +8,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
+import javax.persistence.Table;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.karazin.shop.web.ProductEditController;
 
-@Entity
-public class OrderItem {
+@Entity(name = "OrderItem")
+@Table(name = "OrderItem")
+@SQLDelete(sql="DELETE FROM ORDER_ITEM "
+		+ "WHERE id=? and order_id "
+		+ "IN (SELECT id FROM ORDER_TBL where Status = 'new')")
+public class OrderItem{
 
 	private static final Logger log = LoggerFactory.getLogger(ProductEditController.class);
 
@@ -28,7 +34,7 @@ public class OrderItem {
 	@JoinColumn(name = "order_id")
 	private Order order;
 
-	@ManyToOne(fetch = FetchType.EAGER) // CascadeType.MERGE
+	@ManyToOne(fetch = FetchType.EAGER, cascade={CascadeType.MERGE, CascadeType.PERSIST}) // CascadeType.MERGE
 	@JoinColumn(name = "product_id")
 	private Product product;
 

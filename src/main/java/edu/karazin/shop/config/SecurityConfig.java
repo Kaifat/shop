@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().
                 authorizeRequests()
                 .antMatchers("/product/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/cart/**").permitAll()//access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+                .antMatchers("/order/list/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
                 .antMatchers("/order/**").permitAll()//.access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
                 .antMatchers("/profile/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
                 .antMatchers("/user/**").permitAll()

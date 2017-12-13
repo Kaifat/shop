@@ -1,4 +1,0 @@
-2017-12-13 00:52:38 jdbc[12]: exception
-org.h2.jdbc.JdbcSQLException: Синтаксическая ошибка в выражении SQL "DELETE ORDER_ITEM FROM[*] ORDER_ITEM OI INNER JOIN ORDER_TBL O ON OI.ORDER_ID=O.ID WHERE OI.ID = ?  AND O.STATUS='new' "
-Syntax error in SQL statement "DELETE ORDER_ITEM FROM[*] ORDER_ITEM OI INNER JOIN ORDER_TBL O ON OI.ORDER_ID=O.ID WHERE OI.ID = ?  AND O.STATUS='new' "; SQL statement:
-DELETE ORDER_ITEM FROM ORDER_ITEM oi INNER JOIN order_tbl o ON oi.order_id=o.id WHERE oi.id = ?  and o.status='new' [42000-196]

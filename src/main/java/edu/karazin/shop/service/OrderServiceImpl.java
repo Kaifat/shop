@@ -21,6 +21,7 @@ import edu.karazin.shop.dao.UserRepository;
 import edu.karazin.shop.model.Order;
 import edu.karazin.shop.model.OrderItem;
 import edu.karazin.shop.model.Product;
+import edu.karazin.shop.model.Role;
 import edu.karazin.shop.model.User;
 
 @Component
@@ -165,7 +166,14 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public List<Order> getOrders() {
-		return (List<Order>) orderRepository.findAll();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = this.userRepository.findByLogin(auth.getName());
+		Role role = user.getRole();
+		if (role == Role.ROLE_ADMIN) {
+			return (List<Order>) orderRepository.findAll();
+		} else {
+			return (List<Order>) orderRepository.findByUser(user);
+		}
 	}
 
 	@Override

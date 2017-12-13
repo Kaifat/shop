@@ -6,57 +6,44 @@
 
 
 <div class="row">
-	<div class="col-12 offset-0 col-md-8 offset-md-2 col-lg-8 offset-lg-2">
-		<div class="panel panel-info">
-			<!-- <div class="panel-heading">
-				<div class="panel-title">
-					<div class="row">
-						<div class="col-6">
-							<h5>
-								<span class="glyphicon glyphicon-shopping-cart"></span> Shopping
-								Cart
-							</h5>
-						</div>
-						<div class="col-6 text-right">
-							<a href="/products" class="btn btn-primary" role="button"> <span
-								class="glyphicon glyphicon-share-alt"></span> Continue shopping
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>  -->
+	<div class="col-12">
+		<div class="text-center">
+				    <h2 class="text-center">Orders List</h2>
 			<div class="panel-body">
 				<c:forEach items="${orderList}" var="order">
-					<div class="row order-item" id="product-${order.getId()}">test
-						<!-- <div class="col-3">
-							<img class="img-responsive" alt="${cartItem.getProduct().title}"
-								src="data:${cartItem.getProduct().imageMimeType};base64,${cartItem.getProduct().imageString}"
-								height="70" width="100">
+					<div class="row order" id="order-${order.getId()}">
+						<div class="col-1">
+							${order.getId()}
 						</div>
-						<div class="col-4">
-							<h4 class="product-name">
-								<strong>${cartItem.getProduct().title}</strong>
+						<div class="col-2">
+							<h6>
+								${order.getStatus()}
+								</h6>
+						</div>
+						<div class="col-3">
+							<h6>
+								<strong>${order.getUser().getLastName()} 
+										${order.getUser().getFirstName()}
+										<span class="text-muted"> (ID # ${order.getUser().getId()})</span>
+								</strong>
+							</h6>
+						</div>
+						<div class="col-2">
+							<h6>
+								${order.getAddress()} 
+							</h6>
+						</div>
+						<div class="col-2">
+							<h6>
+								${order.getPhone()} 
+							</h6>
+						</div>
+						<div class="col-2">
+							<h6>
+								${order.getEmail()} 
+							</h6>
+						</div>
 								
-							</h4>
-						</div>
-						<div class="col-5">
-							<div class="row">
-								<div class="col-4 text-right">
-									<h6>
-										<strong>${cartItem.price} <span class="text-muted">*</span></strong>
-									</h6>
-								</div>
-								<div class="col-5 has-error form-group">
-									<input type="number" class="form-control product-amount"
-										value="${cartItem.amount}">
-								</div>
-								<div class="col-3">
-									<button type="button" class="btn btn-danger delete-from-cart">
-										x
-									</button>
-								</div>
-							</div>
-						</div>-->
 					</div>
 				</c:forEach>
 			</div>

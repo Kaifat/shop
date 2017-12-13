@@ -34,7 +34,7 @@ public class OrderItem{
 	@JoinColumn(name = "order_id")
 	private Order order;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade={CascadeType.MERGE, CascadeType.PERSIST}) // CascadeType.MERGE
+	@ManyToOne(fetch = FetchType.EAGER)//, cascade={CascadeType.MERGE, CascadeType.PERSIST}) // CascadeType.MERGE
 	@JoinColumn(name = "product_id")
 	private Product product;
 

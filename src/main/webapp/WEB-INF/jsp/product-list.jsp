@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
   
   	<div class="row text-center">
-  		<div class="col-12 offset-0 col-md-6 offset-md-3 col-lg-6 offset-lg-3">
+  		<div class="col-12 offset-0 col-md-12 offset-md-0 col-lg-6 offset-lg-3">
 	    <form:form modelAttribute="searchForm">
 	    	<div class="input-group">
 	        	<form:input path="searchText" class="form-control" placeholder="Search..." />

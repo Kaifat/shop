@@ -26,6 +26,11 @@
 				</sec:authorize>
             </li>
             <li class="nav-item">
+            	<sec:authorize access="hasRole('ROLE_ADMIN')">
+			 		<a href="/products/deleted" class="nav-link" role="button">Deleted product</a>
+				</sec:authorize>
+            </li>
+            <li class="nav-item">
             	<sec:authorize access="!hasRole('ROLE_ANONYMOUS')">
 					<a href="/order/list" class="nav-link" role="button">Orders</a>
 				</sec:authorize>

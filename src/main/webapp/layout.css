@@ -8,9 +8,10 @@ body {
   }
 }
 
-/*.surface {
-	  min-height: 90%;
-}*/
+.surface {
+	 min-height: 528px;
+	 padding:20px 0 30px;
+}
 
 .card {
   height: 100%;

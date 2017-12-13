@@ -29,15 +29,10 @@
 	              <p class="card-text">${prod.description}</p>
 	            </div>
 	            <div class="card-footer">
-	              	<button class="btn btn-primary add-to-cart" type="button">Add to Cart</button>
-	              	<button class="btn btn-success buy-product" type="button">Buy</button>
-                    
-                    <sec:authorize access="hasRole('ROLE_ADMIN')">
-                        <a href="/product/${prod.id}" class="btn btn-warning" role="button">Edit</a>
-                    </sec:authorize>
-                    <sec:authorize access="hasRole('ROLE_ADMIN')">
-                        <button class="btn btn-danger product_delete" type="button">Delete</button>
-                    </sec:authorize>
+
+                   <sec:authorize access="hasRole('ROLE_ADMIN')">
+                       <button class="btn btn-success product_restore" type="button">Restore</button>
+                   </sec:authorize>
 	            </div>
 	          </div>
 	        </div>

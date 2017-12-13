@@ -48,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
 	@Override
-	public List<OrderItem> getOrderItems() {
+	public List<OrderItem> getCartItems() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth.getName() == "anonymousUser") {
 			return orderItems;
@@ -57,6 +57,12 @@ public class OrderServiceImpl implements OrderService {
 			Order order = this.orderRepository.findFirstByUserAndStatus(user, "new");
 			return this.orderItemRepository.findByOrder(order);
 		}
+	}
+	
+	@Override
+	public List<OrderItem> getOrderItems(Long id) {
+		Order order = this.orderRepository.findOne(id);
+		return this.orderItemRepository.findByOrder(order);
 	}
 
 	@Override
@@ -115,7 +121,7 @@ public class OrderServiceImpl implements OrderService {
 	
 	// TODO: need refactoring
 	@Override
-	public void checkout(String address, String email, String phone) {
+	public Long checkout(String address, String email, String phone) {
 		
 		Order order = new Order();
 		
@@ -134,7 +140,7 @@ public class OrderServiceImpl implements OrderService {
 		}
 			
 		// decrease product balance for product according to each order item
-		this.getOrderItems().forEach(item -> {
+		this.getCartItems().forEach(item -> {
 			Product product = item.getProduct();
 			product.setBalance(product.getBalance() - item.getAmount());
 			this.productRepository.save(product);
@@ -144,18 +150,20 @@ public class OrderServiceImpl implements OrderService {
 		order.setEmail(email);
 		order.setPhone(phone);
 		order.setStatus("done");
-		this.orderRepository.save(order);
+		order = this.orderRepository.save(order);
+		
+		return order.getId();
 	
 	}
 	
 	@Override
 	public boolean allItemsAreAvaliable() {
 		
-		if (this.getOrderItems().isEmpty()) {
+		if (this.getCartItems().isEmpty()) {
 			return false;
 		}
 
-		for (OrderItem item : this.getOrderItems()) {
+		for (OrderItem item : this.getCartItems()) {
 			if (item.getAmount() > item.getProduct().getBalance()) {
 				return false;
 			}

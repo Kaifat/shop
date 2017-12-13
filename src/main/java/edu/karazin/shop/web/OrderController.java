@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.karazin.shop.dao.UserRepository;
 import edu.karazin.shop.model.Order;
@@ -36,11 +37,11 @@ public class OrderController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String list(Model model) {
-		model.addAttribute("cartItems", orderService.getOrderItems());
-		int totalCount = orderService.getOrderItems().stream().mapToInt(item -> item.getAmount()).sum();
+	public String cart(Model model) {
+		model.addAttribute("cartItems", orderService.getCartItems());
+		int totalCount = orderService.getCartItems().stream().mapToInt(item -> item.getAmount()).sum();
 		model.addAttribute("totalCount", totalCount);
-		double totalSum = orderService.getOrderItems().stream().map(item -> {
+		double totalSum = orderService.getCartItems().stream().map(item -> {
 			return item.getPrice() * item.getAmount();
 		}).reduce(0.0, (x, y) -> x + y);
 		model.addAttribute("totalSum", totalSum);
@@ -64,16 +65,18 @@ public class OrderController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, path = "checkout")
-	public String orderCheckout(Model model, Order order) {
+	public String orderCheckout(Model model, Order order, RedirectAttributes redirectAttributes) {
 
 		if (!orderService.allItemsAreAvaliable()) {
 			return "redirect:/order";
 		}
 
-		orderService.checkout(order.getAddress(), order.getEmail(), order.getPhone());
+		Long orderResultId = orderService.checkout(order.getAddress(), order.getEmail(), order.getPhone());		
 
-		model.addAttribute("success", "Order created successfully. Thank you!");
-		return "checkout-success";
+		redirectAttributes.addFlashAttribute("SUCCESS_MESSAGE",
+				"Order #" + orderResultId  +  " created successfully. Thank you!");
+		
+		return "redirect:/products";
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, path = "list")
@@ -81,6 +84,23 @@ public class OrderController {
 		log.info("Show Order List");
 		model.addAttribute("orderList", orderService.getOrders());
 		return "order-list";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, path = "details/{id}")
+	public String getOrderDetails(Model model, Order order) {
+		log.info("Show Order Details");
+		
+		List <OrderItem> orderItems = orderService.getOrderItems(order.getId());
+		model.addAttribute("orderItems", orderItems);
+		model.addAttribute("orderId", order.getId());
+		
+		int totalCount = orderItems.stream().mapToInt(item -> item.getAmount()).sum();
+		model.addAttribute("totalCount", totalCount);
+		double totalSum = orderItems.stream().map(item -> {
+			return item.getPrice() * item.getAmount();
+		}).reduce(0.0, (x, y) -> x + y);
+		model.addAttribute("totalSum", totalSum);
+		return "order-details";
 	}
 
 }

@@ -29,5 +29,12 @@ public class ProductRestController {
 		productService.removeProduct(product.getId());
 		return "success";
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, path = "restore/{id}")
+	public String restoreProduct(Model model, Product product) {
+		log.info("Restore product");
+		productService.restoreProduct(product.getId());
+		return "success";
+	}
 
 }

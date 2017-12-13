@@ -50,7 +50,7 @@
 							<div class="row">
 								<div class="col-4 text-right">
 									<h6>
-										<strong>${cartItem.price} <span class="text-muted">*</span></strong>
+										<strong>\$ ${cartItem.price} <span class="text-muted">*</span></strong>
 									</h6>
 								</div>
 								<div class="col-5 has-error form-group">

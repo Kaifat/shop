@@ -23,6 +23,29 @@ $(document).ready(
 							}
 						});
 					});
+			
+			$(document).on(
+					"click",
+					"button.product_restore",
+					function() {
+
+						var productRow = $(this).parents(".product-item");
+						var productId = productRow.attr('id');
+						productId = productId.match(/\d+/);
+
+						$.ajax({
+							type : "POST",
+							url : window.location.protocol + '//'
+									+ window.location.host + "/product/restore/"
+									+ productId,
+							success : function(resultMsg) {
+								productRow.remove();
+							},
+							error : function(jqXhr, textStatus, errorThrown) {
+								console.log(errorThrown);
+							}
+						});
+					});
 
 			$(document).on(
 					"click",

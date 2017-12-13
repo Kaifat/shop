@@ -8,13 +8,15 @@ import edu.karazin.shop.model.Product;
 
 public interface OrderService {
 	
-	List<OrderItem> getOrderItems();
+	List<OrderItem> getCartItems();
 
+	List<OrderItem> getOrderItems(Long id);
+	
 	void addProduct(Product prod);
 	
 	void changeAmount(Long id, int amount);
 	
-	void checkout(String address, String email, String phone);
+	Long checkout(String address, String email, String phone);
 	
 	boolean allItemsAreAvaliable();
 	

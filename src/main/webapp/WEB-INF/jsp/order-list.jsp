@@ -13,9 +13,9 @@
 				<c:forEach items="${orderList}" var="order">
 					<div class="row order" id="order-${order.getId()}">
 						<div class="col-1">
-							${order.getId()}
+						# ${order.getId()}
 						</div>
-						<div class="col-2">
+						<div class="col-1">
 							<h6>
 								${order.getStatus()}
 								</h6>
@@ -43,21 +43,13 @@
 								${order.getEmail()} 
 							</h6>
 						</div>
+						<div class="col-1">
+						<a href="/order/details/${order.getId()}" class="btn btn-primary" role="button">View</a>
+						</div>
 								
 					</div>
 				</c:forEach>
 			</div>
-			<!-- <div class="panel-footer">
-					<div class="row text-center">
-						<div class="col-9">
-							<h4 class="text-right">Total Amount <strong>${totalCount}</strong></h4>
-							<h4 class="text-right">Total Price <strong>\$ ${totalSum}</strong></h4>
-						</div>
-						<div class="col-3">
-							<a href="/order/checkout" class="btn-block btn btn-primary" role="button">Checkout</a>
-						</div>
-					</div>
-				</div> -->
 		</div>
 	</div>
 </div>

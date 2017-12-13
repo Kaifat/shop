@@ -6,4 +6,12 @@ import javax.persistence.MappedSuperclass;
 public abstract class BaseEntity {
  
     private boolean deleted;
+    
+    public boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 }

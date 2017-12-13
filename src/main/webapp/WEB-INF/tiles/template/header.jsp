@@ -13,9 +13,6 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item">
             	<sec:authorize access="!hasRole('ROLE_ANONYMOUS')">
 					<a href="/profile" class="nav-link">Profile</a>
 				</sec:authorize>
@@ -27,7 +24,7 @@
             </li>
             <li class="nav-item">
             	<sec:authorize access="hasRole('ROLE_ADMIN')">
-			 		<a href="/products/deleted" class="nav-link" role="button">Deleted product</a>
+			 		<a href="/products/deleted" class="nav-link" role="button">Deleted products</a>
 				</sec:authorize>
             </li>
             <li class="nav-item">

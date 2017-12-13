@@ -57,12 +57,6 @@
        <put-attribute name="body" value="/WEB-INF/jsp/checkout.jsp" />  
    </definition>
    
-   <!-- Checkout Success Page -->
-   <definition name="checkout-success" extends="base-definition">  
-       <put-attribute name="title" value="Checkout Success" />  
-       <put-attribute name="body" value="/WEB-INF/jsp/checkout-success.jsp" />  
-   </definition>
-   
     <!-- Update User Details Page -->
    <definition name="user-details" extends="base-definition">  
        <put-attribute name="title" value="Update User Details" />  
@@ -73,6 +67,12 @@
    <definition name="order-list" extends="base-definition">  
        <put-attribute name="title" value="Order List" />  
        <put-attribute name="body" value="/WEB-INF/jsp/order-list.jsp" />  
+   </definition>
+
+	<!-- Order Details Page -->
+   <definition name="order-details" extends="base-definition">  
+       <put-attribute name="title" value="Order Details" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/order-details.jsp" />  
    </definition>
 
 </tiles-definitions>

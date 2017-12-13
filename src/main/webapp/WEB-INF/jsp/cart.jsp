@@ -7,8 +7,24 @@
 
 <div class="row">
 	<div class="col-12 offset-0 col-md-8 offset-md-2 col-lg-8 offset-lg-2">
-			<div class="text-center">
-				    <h2 class="text-center">Orders Details</h2>
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<div class="panel-title">
+					<div class="row">
+						<div class="col-6">
+							<h2>
+								<span class="glyphicon glyphicon-shopping-cart"></span> Shopping
+								Cart
+							</h2>
+						</div>
+						<div class="col-6 text-right">
+							<a href="/products" class="btn btn-primary" role="button"> <span
+								class="glyphicon glyphicon-share-alt"></span> Continue shopping
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="panel-body">
 				<c:forEach items="${cartItems}" var="cartItem">
 					<div class="row order-item" id="product-

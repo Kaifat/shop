@@ -169,8 +169,10 @@ $(document).ready(
 						}
 					});
 
-			$('#password, #confirm_password').on('keyup', function() {
-				if ($('#password').val() == $('#confirm_password').val()) {
+//			Registration jsp file
+//			
+			$('#login, #password, #confirm_password').on('keyup', function() {
+				if ($('#password').val() == $('#confirm_password').val() && $('#login').val() != "") {
 					$('#registerButton').attr('disabled', false);
 					if ($('#registerButton').hasClass('disabled')) {
 						$('#registerButton').removeClass('disabled');

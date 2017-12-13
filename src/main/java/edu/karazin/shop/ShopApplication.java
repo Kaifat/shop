@@ -1,5 +1,8 @@
 package edu.karazin.shop;
 
+import java.io.File;
+import java.io.FileInputStream;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -53,12 +56,23 @@ public class ShopApplication extends SpringBootServletInitializer {
 				}
 
 				// Create several products
+				File file = new File("D:\\pic.jpg");
+		        byte[] bFile = new byte[(int) file.length()];
+		        try {
+		   	     FileInputStream fileInputStream = new FileInputStream(file);
+		   	     //convert file into array of bytes
+		   	     fileInputStream.read(bFile);
+		   	     fileInputStream.close();
+		           } catch (Exception e) {
+		   	     e.printStackTrace();
+		           }
 				for (int i = 1; i <= 10; i++) {
+					
 					productRepository.save(
-							new Product("Product_" + i, "Product_" + i + "_Description", null, null, 10.0 * i, 10 * i));
+							new Product("Product_" + i, "Product_" + i + "_Description", bFile, "image/jpeg", 10.0 * i, 10 * i));
 				}
 			}
 		};
 	}
-
+	
 }

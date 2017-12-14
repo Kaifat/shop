@@ -90,6 +90,8 @@ public class OrderController {
 	public String getOrderDetails(Model model, Order order) {
 		log.info("Show Order Details");
 		
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();		
+		
 		List <OrderItem> orderItems = orderService.getOrderItems(order.getId());
 		model.addAttribute("orderItems", orderItems);
 		model.addAttribute("orderId", order.getId());

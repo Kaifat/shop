@@ -37,7 +37,6 @@ public class OrderServiceImpl implements OrderService {
 	private final ProductRepository productRepository;
 	private final List<OrderItem> orderItems = new ArrayList<>();
 	
-	
 	@Autowired
     public OrderServiceImpl(OrderRepository orderRepository, OrderItemRepository orderItemRepository, 
     		UserRepository userRepository, ProductRepository productRepository) {
